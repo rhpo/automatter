@@ -1,4 +1,4 @@
-package main
+﻿package main
 
 import (
 	. "automate/functions"
@@ -14,18 +14,16 @@ func ReadAlphabet(automate *Automate) {
 	for {
 		var letter Letter
 
-		fmt.Printf("Σ[%d]: ", len(automate.Alphabet)+1)
+		fmt.Printf("Î£[%d]: ", len(automate.Alphabet)+1)
 		fmt.Scanf("%s", &letter)
 
 		status, message = automate.AddLetter(letter)
 
-		// if finishes input
 		if status == nil {
 			ClearLine()
 			break
 		}
 
-		// if there is an error, print the message
 		if !*status {
 			ClearLine()
 			color.New(color.FgRed).Println("Error:", message)
@@ -46,14 +44,12 @@ func ReadStates(automate *Automate) {
 
 		status, message = automate.AddState(state)
 
-		// if finishes input
 		if status == nil {
 			ClearLine()
 
 			break
 		}
 
-		// if there is an error, print the message
 		if !*status {
 			ClearLine()
 			color.New(color.FgRed).Println("Error:", message)
@@ -74,14 +70,12 @@ func ReadInitialState(automate *Automate) {
 
 		status, message = automate.AddInitialState(state)
 
-		// if finishes input
 		if status == nil {
 			ClearLine()
 
 			break
 		}
 
-		// if there is an error, print the message
 		if !*status {
 			ClearLine()
 			color.New(color.FgRed).Println("Error:", message)
@@ -104,14 +98,12 @@ func ReadFinalStates(automate *Automate) {
 
 		status, message = automate.AddFinalState(state)
 
-		// if finishes input
 		if status == nil {
 			ClearLine()
 
 			break
 		}
 
-		// if there is an error, print the message
 		if !*status {
 			ClearLine()
 			color.New(color.FgRed).Println("Error:", message)
@@ -129,16 +121,13 @@ func ReadTransitions(automate *Automate) {
 		prompt := "Input the Transition (Initial Transition q):\n"
 
 		for {
-			// read the initial state
 			var q0 Letter
 			for {
 				fmt.Print(prompt)
 				fmt.Scanf("%s", &q0)
 
-				// can't be empty
 
 				if len(q0) == 0 && len(automate.Transitions) == 0 {
-					// error, please input at least one transition
 					ClearLine(2)
 					fmt.Println("Please input at least one transition")
 					continue
@@ -155,7 +144,6 @@ func ReadTransitions(automate *Automate) {
 					return
 				}
 
-				// if there is an error, print the message
 				if !automate.IsFinalState(q0) && !automate.IsInitialState(q0) {
 					ClearLine(2)
 
@@ -176,7 +164,6 @@ func ReadTransitions(automate *Automate) {
 				fmt.Print(prompt)
 				fmt.Scanf("%s", &letter)
 
-				// if there is an error, print the message
 				if !automate.IsLetter(letter) {
 					ClearLine(2)
 
@@ -197,7 +184,6 @@ func ReadTransitions(automate *Automate) {
 				fmt.Print(prompt)
 				fmt.Scanf("%s", &q1)
 
-				// can't be empty
 				if len(q1) == 0 {
 					ClearLine(2)
 					fmt.Printf("Please enter a final state\n")
@@ -205,7 +191,6 @@ func ReadTransitions(automate *Automate) {
 					continue
 				}
 
-				// if there is an error, print the message
 				if !automate.IsFinalState(q1) && !automate.IsInitialState(q1) {
 					ClearLine(2)
 
@@ -236,7 +221,6 @@ func ReadTransitions(automate *Automate) {
 
 			automate.AddTransition(&transition)
 
-			// println("Added successfully.")
 			println()
 			break
 		}
@@ -249,27 +233,21 @@ func ReadAutomate(automate *Automate) {
 
 	Clear()
 
-	// Read the alphabet
 	fmt.Println("Input the alphabet:")
 	ReadAlphabet(automate)
 	println()
 
-	// Read the states
 	fmt.Println("Input the states:")
 	ReadStates(automate)
 	println()
 
-	// Read the initial state
-	// fmt.Println("Input the initial state:")
 	ReadInitialState(automate)
 	println()
 
-	// Read the final states
 	fmt.Println("Input the final states:")
 	ReadFinalStates(automate)
 	println()
 
-	// fmt.Println("Input the transitions*")
 	ReadTransitions(automate)
 	println()
 }

@@ -14,7 +14,6 @@ func main() {
 
 	Display(*automate)
 
-	// enter a word and it will' tell if it is accepted or not
 	for {
 		var word string
 		color.New(color.FgCyan).Print("Enter a word (Ctrl-C to stop): ")
